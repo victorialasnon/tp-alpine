@@ -1,14 +1,17 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {useSelector} from "react-redux";
 
 function App() {
+  const test = useSelector((state) => state.test);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          redux test : {test}
         </p>
         <a
           className="App-link"
