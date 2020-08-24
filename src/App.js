@@ -1,7 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {useSelector} from "react-redux";
+
+import {
+  Version,
+  Color,
+  Rims,
+  Upholstery,
+  Equipment,
+  Accessories,
+  Summary,
+} from './Components/Placeholders';
 
 function App() {
   const test = useSelector((state) => state.test);
@@ -9,18 +18,17 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           redux test : {test}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <Version />
+        <Color />
+        <Rims />
+        <Upholstery />
+        <Equipment />
+        <Accessories />
+        <Summary />
       </header>
     </div>
   );
