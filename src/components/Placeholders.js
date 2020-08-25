@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Toast from 'react-bootstrap/Toast';
 
 export const Version = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <div
       style={{ backgroundColor: '#7ea7e5', width: '100px', height: '100px' }}
