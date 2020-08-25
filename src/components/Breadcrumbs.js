@@ -11,28 +11,29 @@ import { Link } from 'react-router-dom';
 export const Breadcrumbs = (props) => {
   const dispatch = useDispatch();
   const steps = useSelector((state) => state.steps);
-  const fsm = useSelector((state) => state.fsm);
-  const currentState = fsm.states[fsm.current];
+  // const fsm = useSelector((state) => state.fsm);
+  // const currentState = fsm.states[fsm.current];
 
   function input(transition) {
-    if (currentState[transition]) {
+    // if (currentState[transition]) {
       dispatch({ type: 'FSM_SET', transition: transition });
-    }
+    // }
   }
 
   return (
     <>
-      <span>{fsm.current}</span>
+      {/* <span>{fsm.current}</span> */}
       <Breadcrumb>
         {steps.map(({ path, transition, name }, key) => {
-          return transition === fsm.current ? (
-            <Breadcrumb.Item>{name}</Breadcrumb.Item>
-          ) : (
+          return (
+          // return transition === fsm.current ? (
+          //   <Breadcrumb.Item>{name}</Breadcrumb.Item>
+          // ) : (
             <Breadcrumb.Item
               key={key}
               linkAs={Link}
               linkProps={{ to: path }}
-              onClick={() => input(transition)}
+              onClick={() => input('submit')}
             >
               {name}
             </Breadcrumb.Item>
