@@ -13,7 +13,6 @@
 - ConfigEmailForm
 - ConfigSummary
 
-
 1. **_Version_**
    - header
      - Breadcrumbs
@@ -74,4 +73,3 @@
    - sidebar
      - ConfigEmailForm
      - ConfigSummary
-
