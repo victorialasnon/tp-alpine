@@ -1,8 +1,6 @@
 # tp-alpine
 
-## component list
-
----
+## components
 
 - Breadcrumbs
 - NextButton
@@ -13,63 +11,34 @@
 - ConfigEmailForm
 - ConfigSummary
 
-1. **_Version_**
-   - header
+## step layouts
+
+1. **Version, Color, Rims, Upholstery**
+   - _header_
      - Breadcrumbs
-     - Breadcrumbs
-   - body
+   - _body_
+     - PreviewCarousel
      - OptionList
-   - footer
+   - _footer_
      - ConfigStatus
      - NextButton
-1. **_Color_**
-   - header
+1. **Equipment, Accessories**
+   - _header_
      - Breadcrumbs
-   - body
-     - OptionList
-   - footer
-1. **_Rims_**
-   - header
-     - Breadcrumbs
-   - body
-     - OptionList
-   - footer
-1. **_Upholstery_**
-   - header
-     - Breadcrumbs
-   - body
-     - OptionList
-   - footer
-1. **_Equipment_**
-   - header
-     - Breadcrumbs
-   - body
+   - _body_
+     - PreviewCarousel
      - OptionMenu
        - OptionList
-       - OptionList
-       - OptionList
-       - OptionList
-       - OptionList
-       - OptionList
-       - OptionList
-   - footer
-1. **_Accessories_**
-   - header
+       - ...
+   - _footer_
+     - ConfigStatus
+     - NextButton
+1. **Summary**
+   - _header_
      - Breadcrumbs
-   - body
-     - OptionMenu
-       - OptionList
-       - OptionList
-       - OptionList
-       - OptionList
-   - footer
-1. **_Summary_**
-
-   - header
-     - Breadcrumbs
-   - body
+   - _body_
      - OptionList
      - PreviewCarousel
-   - sidebar
+   - _sidebar_
      - ConfigEmailForm
      - ConfigSummary
