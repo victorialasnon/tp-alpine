@@ -1,15 +1,18 @@
+import routes from '../routes';
+
 const initialState = {
   test: 'plumbing ok',
   currentStep : 0,
-  steps : [
-    'version',
-    'color',
-    'rims',
-    'upholstery',
-    'equipment',
-    'accessories',
-    'summary',
-  ]
+  steps : routes,
+  // steps : [
+  //   'version',
+  //   'color',
+  //   'rims',
+  //   'upholstery',
+  //   'equipment',
+  //   'accessories',
+  //   'summary',
+  // ]
 };
 
 function rootReducer(state = initialState, action) {
