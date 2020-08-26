@@ -11,34 +11,46 @@ import {
 export default [
   {
     path: '/version',
-    transition: 'version',
+    transition: 'select',
     name: 'Version',
     Component: Version,
   },
-  { path: '/color', transition: 'color', name: 'Couleur', Component: Color },
-  { path: '/rims', transition: 'rims', name: 'Jantes', Component: Rims },
+  { path: '/color', transition: 'next', name: 'Couleur', Component: Color },
+  { path: '/rims', transition: 'next', name: 'Jantes', Component: Rims },
   {
     path: '/upholstery',
-    transition: 'upholstery',
+    transition: 'next',
     name: 'Sellerie',
     Component: Upholstery,
   },
   {
     path: '/equipment',
-    transition: 'equipment',
+    transition: 'down',
     name: 'Equipements',
     Component: Equipment,
   },
   {
     path: '/accessories',
-    transition: 'accessories',
+    transition: 'up',
     name: 'Accessoires',
     Component: Accessories,
   },
   {
     path: '/summary',
-    transition: 'summary',
+    transition: 'reset',
     name: 'Récapitulatif',
+    Component: Summary,
+  },
+  {
+    path: '/summary',
+    transition: 'confirm',
+    name: 'confirm',
+    Component: Summary,
+  },
+  {
+    path: '/summary',
+    transition: 'cancel',
+    name: 'cancel',
     Component: Summary,
   },
 ];

@@ -33,7 +33,7 @@ export const Breadcrumbs = (props) => {
               key={key}
               linkAs={Link}
               linkProps={{ to: path }}
-              onClick={() => input('submit')}
+              onClick={() => input(transition)}
             >
               {name}
             </Breadcrumb.Item>
