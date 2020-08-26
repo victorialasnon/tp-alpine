@@ -25,20 +25,38 @@ export default [
   },
   {
     path: '/equipment',
-    transition: 'down',
+    transition: 'next',
     name: 'Equipements',
     Component: Equipment,
   },
   {
     path: '/accessories',
-    transition: 'up',
+    transition: 'next',
     name: 'Accessoires',
     Component: Accessories,
   },
   {
     path: '/summary',
-    transition: 'reset',
+    transition: 'submit',
     name: 'Récapitulatif',
+    Component: Summary,
+  },
+  {
+    path: '/summary',
+    transition: 'reset',
+    name: 'reset',
+    Component: Summary,
+  },
+  {
+    path: '/summary',
+    transition: 'up',
+    name: 'up',
+    Component: Summary,
+  },
+  {
+    path: '/summary',
+    transition: 'down',
+    name: 'down',
     Component: Summary,
   },
   {

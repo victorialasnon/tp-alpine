@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
 import { Breadcrumbs } from './components/Breadcrumbs';
 import routes from './routes';
 // import Container from 'react-bootstrap/Container';
@@ -8,8 +7,6 @@ import routes from './routes';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
-  const test = useSelector((state) => state.test);
-
   return (
       <div className="App">
 
@@ -43,7 +40,6 @@ function App() {
               })}
             </Switch>
           </Router>
-        <p>redux test : {test}</p>
       </div>
   );
 }

@@ -1,7 +1,7 @@
 /**
  * Define possible states, transitions, handlers, helpers.
  *
- * @note Guards and business state is handled with redux store. *
+ * @note Context for guards and business state is handled with redux store.
  * @todo Consider wether to integrate with redux store or just track context
  *       in redux store.
  */
@@ -61,7 +61,7 @@ const configMachine = {
     summary: {
       submit: function () {
         /** Send config by email. */
-        this.set(['summary']);
+        this.set(['done']);
       },
       reset: function (origin) {
         /** Store origin somewhere. */
@@ -79,6 +79,13 @@ const configMachine = {
         this.set(['summary']);
       },
     },
+    done: {
+      reset: function (origin) {
+        /** Store origin somewhere. */
+        // console.log(origin);
+        this.set(['reset']);
+      },
+    },
   },
   send(transition, ...payload) {
     const depth = this.current.length;
@@ -91,7 +98,7 @@ const configMachine = {
     if (state) {
       const handler = state[transition];
       console.log('handler', handler);
-      
+
       if (handler) {
         handler.apply(configMachine, ...payload);
       }
@@ -104,4 +111,39 @@ const configMachine = {
   },
 };
 
+function isConfigDone(config) {
+  let isDone = false;
+  if (config === Object(config)) {
+    isDone = true;
+    Object.keys(config).forEach(function (key) {
+      isDone = isDone && Array.isArray(config[key]) && config[key].length;
+    });
+  }
+  return isDone;
+}
+
 export default configMachine;
+
+// let isDone = true;
+// Object.keys(config).forEach(function (key) {
+//   isDone = isDone && Array.isArray(config[key]) && config[key].length;
+// });
+
+// let isDone = true;
+
+// for ( const key in Object.keys(config)) {
+//   isDone = isDone && Array.isArray(config[key]) && config[key].length;
+// }
+
+// let isDone = (Array.isArray(config.version) && config.version.length)
+//   && (Array.isArray(config.version) && config.version.length)
+//   && (Array.isArray(config.color) && config.version.color)
+//   && (Array.isArray(config.rims) && config.version.rims)
+//   && (Array.isArray(config.upholstery) && config.version.upholstery)
+//   && (Array.isArray(config.equipment) && config.version.equipment)
+//   && (Array.isArray(config.accessories) && config.version.accessories);
+
+// let isDone = true;
+// for (const [key, value] of config){
+//   isDone = isDone && Array.isArray(value) && value.length;
+// }

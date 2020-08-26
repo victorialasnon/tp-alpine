@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link } from 'react-router-dom';
 
+import configMachine from '../machines/Configurator';
 // const selectSteps = createSelector(
 //   state => state.steps
 // );
@@ -11,11 +12,15 @@ import { Link } from 'react-router-dom';
 export const Breadcrumbs = (props) => {
   const dispatch = useDispatch();
   const steps = useSelector((state) => state.steps);
+  // const machine = useSelector((state) => state.machine);
   // const fsm = useSelector((state) => state.fsm);
   // const currentState = fsm.states[fsm.current];
 
   function input(transition) {
     // if (currentState[transition]) {
+      // console.log(configMachine.current);
+      // console.log(configMachine === machine);
+      // console.log(Object.is(configMachine, machine));
       dispatch({ type: 'FSM_SET', transition: transition });
     // }
   }
