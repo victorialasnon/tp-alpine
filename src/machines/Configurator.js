@@ -1,3 +1,5 @@
+// import store from '../store';
+
 /**
  * Define possible states, transitions, handlers, helpers.
  *
@@ -15,9 +17,13 @@ const configMachine = {
       },
     },
     settings: {
-      next: function () {
+      next: function (context) {
+        console.log('next : context', context)
+        // const config = store.getState().config;
         /** Display next empty option screen or summary if all done. */
-        this.set(['summary']);
+        if(isConfigDone(context)) {
+          this.set(['summary']);
+        }
       },
       reset: function (origin) {
         /** Store origin somewhere. */
@@ -90,6 +96,7 @@ const configMachine = {
   send(transition, ...payload) {
     const depth = this.current.length;
     let state = this.states[this.current[0]];
+    console.log('send : payload', payload);
     console.log('before : available transitions', state);
     console.log('transition sent : ' + transition);
     for (let i = 1; i < depth; i++) {
@@ -100,7 +107,8 @@ const configMachine = {
       console.log('handler', handler);
 
       if (handler) {
-        handler.apply(configMachine, ...payload);
+        console.log('handler apply : ', ...payload);
+        handler.apply(configMachine, payload);
       }
     }
     console.log('after : available transitions', this.states[this.current[0]]);
@@ -117,8 +125,10 @@ function isConfigDone(config) {
     isDone = true;
     Object.keys(config).forEach(function (key) {
       isDone = isDone && Array.isArray(config[key]) && config[key].length;
+      console.log(isDone);
     });
   }
+  console.log('isConfigDone ? : ', config, isDone);
   return isDone;
 }
 
