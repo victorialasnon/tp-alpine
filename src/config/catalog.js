@@ -71,6 +71,25 @@ export default {
       ]
       },
     },
+    { category : 'interieur', desc: 'Intérieur', items : {
+      all: [
+        { name: 'tapis-coffre', desc: 'Tapis de coffre', price: 83},
+        { name: 'filet-rangement', desc: 'Filet de rangement-Horizontal', price: 59},
+      ]},
+    },
+    { category : 'garage-equipment', desc: 'Matériel de garage', items : {
+      all: [
+        { name: 'chargeur-batterie', desc: 'Chargeur batterie', price: 240},
+        { name: 'kit-outils', desc: 'Kit Outils Alpine', price: 398},
+      ]},
+    },
+    { category : 'exterieur', desc: 'Extérieur', items : {
+      all: [
+        { name: 'cabochons-metal', desc: 'Cabochons Alpine - Métalisés', price: 24},
+        { name: 'housse', desc: 'Housse de protection Alpine', price: 216},
+        { name: 'antivol-jantes', desc: 'Antivols pour jante - Noirs', price: 51},
+      ]},
+    },
   ],
 };
 
