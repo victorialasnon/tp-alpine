@@ -1,0 +1,17 @@
+.button{
+    color : var(--color-white);
+    font-size: 1.5rem;
+    padding: 32px;
+    margin: 0;
+    text-transform: none;
+    display: inline-block;
+    transition: .5s,color .5s;
+    font-weight: 700;
+    background-color: var(--color-alpine);
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    background: none;
+    font-family: inherit;
+    border-radius: 0;
+}

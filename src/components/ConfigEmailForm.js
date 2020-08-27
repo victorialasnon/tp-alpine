@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../ConfigEmailForm.css';
+import './ConfigEmailForm.css';
 
 export const ConfigEmailForm = (props) => {
   return (
@@ -7,11 +7,11 @@ export const ConfigEmailForm = (props) => {
       <form method="post" action="formulaire-simple">
         Contact
         <select name="demande">
-          <option selected>demande d'essai</option>
+          <option selected>demande d&lsquo;essai</option>
           <option>demande de brochure</option>
           <option>contacter le service client</option>
-          <option>dema,de d'information après vente</option>
-          <option>demande d'information produit</option>
+          <option>demande d&lsquo;information après vente</option>
+          <option>demande d&lsquo;information produit</option>
           <option>contacter votre centre Alpine</option>
         </select>
         <input type="radio" name="choix" value="m." checked />

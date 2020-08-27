@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import '../NextButton.css';
+import './NextButton.css';
+import { Button } from 'react-bootstrap';
+
 
 export const NextButton = (props) => {
   return (
-    <button type="button" class="btn btn-outline-primary">
+    <Button size="lg" block>
       {props.text}
-    </button>
+    </Button>
   );
 };
