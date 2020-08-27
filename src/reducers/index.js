@@ -1,8 +1,14 @@
 // import routes from '../config/routes';
-// import configMachine from '../machines/Configurator';
 
 const initialState = {
   step: 'Version',
+  settingSequencer: stepSequencer([
+    'color',
+    'rims',
+    'upholstery',
+    'equipment',
+    'accessories',
+  ]),
   config: {
     version: [],
     color: [],
@@ -41,6 +47,28 @@ function rootReducer(state = initialState, action) {
       };
     default:
       return state;
+  }
+}
+
+/**
+ * Return a generator that wraps around a given array of steps.
+ *
+ * Created generator will move its internal cursor to optional given step on
+ * next() call if given step exists.
+ *   i.e.: generator.next('stepValue');
+ *
+ * @todo Consider making 'previous' a reserved keyword used to go backward.
+ */
+function* stepSequencer(steps) {
+  const length = steps.length;
+  for (let i = 0; ; ) {
+    if (i >= length) {
+      i = 0;
+    } else if (i < 0) {
+      i = length - 1;
+    }
+    const requested = steps.indexOf(yield steps[i]);
+    i = requested !== -1 ? requested : i + 1;
   }
 }
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+// import { useSelector } from 'react-redux';
 import configMachine from '../machines/Configurator';
 import { Link } from 'react-router-dom';
 import catalog from '../config/catalog';
@@ -21,21 +21,18 @@ function listItems(catalog, event) {
 }
 
 export const Version = (props) => {
-  const selected = useSelector((state) => state.config.version);
   return (
       <Link to="/color">{listItems(catalog.versions, 'select')}</Link>
   );
 };
 
 export const Color = (props) => {
-  const selected = useSelector((state) => state.config.version);
   return (
       <Link to="/rims">{listItems(catalog.colors.all, 'next')}</Link>
   );
 };
 
 export const Rims = (props) => {
-  const selected = useSelector((state) => state.config.version);
   return (
       <Link to="/color">{listItems(catalog.rims.all, 'next')}</Link>
   );
