@@ -1,50 +1,66 @@
 import React from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Breadcrumbs } from './components/Breadcrumbs';
-import routes from './routes';
-import Container from 'react-bootstrap/Container';
-
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import configMachine from './machines/Configurator';
 
 function App() {
-  const test = useSelector((state) => state.test);
-
+  const dispatch = useDispatch();
   return (
-      <div className="App">
-
-          <Router>
-            <Breadcrumbs/>
-            {/* {routes.map(({ path, Component }, key) => {
-            return (
-              <Link to={path} key={key}>
-                {path}
-              </Link>
-            );
-          })} */}
-            <Switch>
-              {routes.map(({ path, Component }, key) => {
-                return (
-                  <Route
-                    exact
-                    path={path}
-                    key={key}
-                    render={(props) => {
-                      // const crumbs = routes.filter(({path}) => {
-                      //   console.log('path : ' + path);
-                      //   console.log(props.match.path);
-                      //   console.log(props);
-                      //   return true;
-                      // })
-                      return <Component {...props} path={props.match.path} />;
-                    }}
-                  />
-                );
-              })}
-            </Switch>
-          </Router>
-        <p>redux test : {test}</p>
+    <div className="App">
+      <Breadcrumbs />
+      <div>
+        <hr />
+        <button
+          onClick={() => {
+            // dispatch({ type: 'CONFIG_SEND', transition: 'select' });
+            configMachine.send('select');
+          }}
+        >
+          select
+        </button>
+        <button
+          onClick={() => {
+            // dispatch({ type: 'CONFIG_SEND', transition: 'next' });
+            configMachine.send('next');
+          }}
+        >
+          next
+        </button>
+        <button
+          onClick={() => {
+            // dispatch({ type: 'CONFIG_SEND', transition: 'submit' });
+            configMachine.send('submit');
+          }}
+        >
+          submit
+        </button>
+        <button
+          onClick={() => {
+            // // dispatch({ type: 'CONFIG_SEND', transition: 'reset' });
+            configMachine.send('reset');
+          }}
+        >
+          reset
+        </button>
+        <button
+          onClick={() => {
+            // dispatch({ type: 'CONFIG_SEND', transition: 'confirm' });
+            configMachine.send('confirm');
+          }}
+        >
+          confirm
+        </button>
+        <button
+          onClick={() => {
+            // dispatch({ type: 'CONFIG_SEND', transition: 'cancel' });
+            configMachine.send('cancel');
+          }}
+        >
+          cancel
+        </button>
       </div>
+    </div>
   );
 }
 

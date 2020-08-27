@@ -1,41 +1,49 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Toast from 'react-bootstrap/Toast';
+import configMachine from '../machines/Configurator';
+import { Link } from 'react-router-dom';
+import catalog from '../config/catalog';
+
+function listItems(catalog, event) {
+  return catalog.map((item, key) => {
+    return (
+      <button
+        key={key}
+        onClick={() => {
+          console.log(item);
+          configMachine.send(event, item);
+        }}
+      >
+        select {item.name} {item.price} €
+      </button>
+    );
+  });
+}
 
 export const Version = (props) => {
-  console.log(props);
+  const selected = useSelector((state) => state.config.version);
+  console.log(selected[0]?.desc);
   return (
-    <div
-      style={{ backgroundColor: '#7ea7e5', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <>
+      <Link to="/color">{listItems(catalog.versions, 'select')}</Link>
+      <p>{selected[0]?.desc ?? '...'}</p>
+    </>
   );
 };
+
 export const Color = (props) => {
+  const selected = useSelector((state) => state.config.version);
+  console.log(selected[0]?.desc);
   const [show, toggleShow] = useState(true);
   return (
-    <Toast
-      show={show}
-      style={{ backgroundColor: '#63d5c0', width: '100px', height: '100px' }}
-      onClose={() => toggleShow(!show)}
-    >
-      <Toast.Header>
-        <strong className="mr-auto">
-          {props.path}
-          </strong>
-          </Toast.Header>
-      <Toast.Body>
-        <div
-          style={{
-            backgroundColor: '#63d5c0',
-            width: '100px',
-            height: '100px',
-          }}
-        ></div>
-      </Toast.Body>
-    </Toast>
+    <>
+      <Link to="/color">{listItems(catalog.colors.all, 'select')}</Link>
+      <p>{selected[0]?.desc ?? '...'}</p>
+    </>
   );
 };
+
 export const Rims = (props) => {
   return (
     <div
