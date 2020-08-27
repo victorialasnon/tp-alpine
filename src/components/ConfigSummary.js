@@ -22,7 +22,6 @@ export const ConfigSummary = (props) => {
   const selected = state.config;
   return (
     <>
-    <hr />
     <p>step : {state.step ?? '...'}</p>
     <hr />
     <ol>

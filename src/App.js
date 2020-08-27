@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import configMachine from './machines/Configurator';
 import { Breadcrumbs } from './components/Breadcrumbs';
 import {ConfigSummary} from './components/ConfigSummary';
 
 function App() {
-  const state = useSelector((state) => state);
-  const selected = state.config;
+  // const state = useSelector((state) => state);
+  // const selected = state.config;
   // console.log('selected config : ', selected);
   return (
     <div className="App">
@@ -16,7 +16,6 @@ function App() {
         <hr />
         <button
           onClick={() => {
-            // dispatch({ type: 'CONFIG_SEND', transition: 'select' });
             configMachine.send('select');
           }}
         >
@@ -24,7 +23,6 @@ function App() {
         </button>
         <button
           onClick={() => {
-            // dispatch({ type: 'CONFIG_SEND', transition: 'next' });
             configMachine.send('next');
           }}
         >
@@ -32,7 +30,6 @@ function App() {
         </button>
         <button
           onClick={() => {
-            // dispatch({ type: 'CONFIG_SEND', transition: 'submit' });
             configMachine.send('submit');
           }}
         >
@@ -40,7 +37,6 @@ function App() {
         </button>
         <button
           onClick={() => {
-            // // dispatch({ type: 'CONFIG_SEND', transition: 'reset' });
             configMachine.send('reset');
           }}
         >
@@ -48,7 +44,6 @@ function App() {
         </button>
         <button
           onClick={() => {
-            // dispatch({ type: 'CONFIG_SEND', transition: 'confirm' });
             configMachine.send('confirm');
           }}
         >
@@ -56,7 +51,6 @@ function App() {
         </button>
         <button
           onClick={() => {
-            // dispatch({ type: 'CONFIG_SEND', transition: 'cancel' });
             configMachine.send('cancel');
           }}
         >

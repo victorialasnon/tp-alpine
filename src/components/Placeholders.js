@@ -22,34 +22,22 @@ function listItems(catalog, event) {
 
 export const Version = (props) => {
   const selected = useSelector((state) => state.config.version);
-  console.log(selected[0]?.desc);
   return (
-    <>
       <Link to="/color">{listItems(catalog.versions, 'select')}</Link>
-      <p>{selected[0]?.desc ?? '...'}</p>
-    </>
   );
 };
 
 export const Color = (props) => {
   const selected = useSelector((state) => state.config.version);
-  console.log(selected[0]?.desc);
-  // const [show, toggleShow] = useState(true);
   return (
-    <>
-      <Link to="/color">{listItems(catalog.colors.all, 'select')}</Link>
-      <p>{selected[0]?.desc ?? '...'}</p>
-    </>
+      <Link to="/rims">{listItems(catalog.colors.all, 'next')}</Link>
   );
 };
 
 export const Rims = (props) => {
+  const selected = useSelector((state) => state.config.version);
   return (
-    <div
-      style={{ backgroundColor: '#a5d773', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+      <Link to="/color">{listItems(catalog.rims.all, 'next')}</Link>
   );
 };
 export const Upholstery = (props) => {

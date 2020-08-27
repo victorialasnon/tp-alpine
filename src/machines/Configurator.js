@@ -25,11 +25,16 @@ const configMachine = {
       },
     },
     settings: {
-      next: function (context) {
-        console.log('next : context', context);
-        // const config = store.getState().config;
+      next: function (items) {
+        const context = store.getState();
+
+        store.dispatch({
+          type: 'UPDATE_CONFIG',
+          config: { [context.step]: [items] },
+        });
+        store.dispatch({ type: 'SET_STEP', step: 'rims' });
         /** Display next empty option screen or summary if all done. */
-        if (isConfigDone(context)) {
+        if (isConfigDone(context.config)) {
           this.set(['summary']);
         }
       },
@@ -53,7 +58,7 @@ const configMachine = {
     },
     reset: {
       confirm: function () {
-        /** Reset the store here. */
+        store.dispatch({ type: 'RESET_CONFIG' });
         this.set(['version']);
       },
       cancel: function () {
@@ -106,6 +111,19 @@ function isConfigDone(config) {
   }
   console.log('isConfigDone ? : ', config, isDone);
   return isDone;
+}
+
+function * stepSequencer(steps) {
+  const length = steps.length;
+  for(let i = 0;;) {
+    if (i >= length) {
+      i = 0;
+    } else if (i < 0) {
+      i = length - 1;
+    }
+    const requested = steps.indexOf(yield steps[i]);
+    i = (requested !== -1) ? requested : i + 1;
+  }
 }
 
 export default configMachine;
