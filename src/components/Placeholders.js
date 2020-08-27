@@ -3,18 +3,30 @@ import { useSelector } from 'react-redux';
 import Toast from 'react-bootstrap/Toast';
 import configMachine from '../machines/Configurator';
 import { Link } from 'react-router-dom';
-
+import catalog from '../config/catalog';
 
 export const Version = (props) => {
-  const version = useSelector((state) => state.config.version);
-  // console.log(props);
+  const selected_version = useSelector((state) => state.config.version);
+  console.log(selected_version[0]?.desc);
   return (
     <div
       style={{ backgroundColor: '#7ea7e5', width: '100px', height: '100px' }}
     >
       <Link to="/color">
-
-      <button
+        {catalog.versions.map((version, key) => {
+          return (
+            <button
+              key={key}
+              onClick={() => {
+                console.log(version);
+                configMachine.send('select', version);
+              }}
+            >
+              select {version.name} {version.price} €
+            </button>
+          );
+        })}
+        {/* <button
         onClick={() => {
           configMachine.send('select', ['Pure']);
         }}
@@ -27,9 +39,9 @@ export const Version = (props) => {
         }}
         >
         select Legend
-      </button>
-      {version[0]}
-        </Link>
+      </button> */}
+      </Link>
+        {selected_version[0]?.desc ?? '...'}
     </div>
   );
 };
