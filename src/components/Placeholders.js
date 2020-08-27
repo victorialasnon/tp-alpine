@@ -1,13 +1,35 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Toast from 'react-bootstrap/Toast';
+import configMachine from '../machines/Configurator';
+import { Link } from 'react-router-dom';
+
 
 export const Version = (props) => {
+  const version = useSelector((state) => state.config.version);
   // console.log(props);
   return (
     <div
       style={{ backgroundColor: '#7ea7e5', width: '100px', height: '100px' }}
     >
-      {props.path}
+      <Link to="/color">
+
+      <button
+        onClick={() => {
+          configMachine.send('select', ['Pure']);
+        }}
+        >
+        select Pure
+      </button>
+      <button
+        onClick={() => {
+          configMachine.send('select', ['Legend']);
+        }}
+        >
+        select Legend
+      </button>
+      {version[0]}
+        </Link>
     </div>
   );
 };
@@ -20,10 +42,8 @@ export const Color = (props) => {
       onClose={() => toggleShow(!show)}
     >
       <Toast.Header>
-        <strong className="mr-auto">
-          {props.path}
-          </strong>
-          </Toast.Header>
+        <strong className="mr-auto">{props.path}</strong>
+      </Toast.Header>
       <Toast.Body>
         <div
           style={{

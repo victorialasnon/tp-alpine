@@ -1,33 +1,49 @@
-import routes from '../routes';
-import configMachine from '../machines/Configurator';
+// import routes from '../config/routes';
+// import configMachine from '../machines/Configurator';
 
 const initialState = {
-  currentStep: 0,
+  step: 'Version',
   config: {
-    version: [1],
-    color: [1],
-    rims: [1],
-    upholstery: [0],
-    equipment: [1],
-    accessories: [1],
+    version: [],
+    color: [],
+    rims: [],
+    upholstery: [],
+    equipment: [],
+    accessories: [],
   },
-  steps: routes,
+  // steps: routes,
   // machine : configMachine,
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case 'FSM_SET':
-      console.log(action.type + ' : ' + action.transition);
-      console.log('state.config', state.config);
-      configMachine.send(action.transition, state.config);
-      console.log(configMachine.current);
-      console.log('--------------------------------');
-      return state;
-    // return {
-    //   ...state,
-    //   fsm : {...state.fsm, current : action.transition}
-    // }
+    // case 'CONFIG_SEND':
+    //   console.log(action.type + ' : ' + action.transition);
+    //   console.log('state.config', state.config);
+    //   configMachine.send(action.transition, state.config);
+    //   console.log(configMachine.current);
+    //   console.log('--------------------------------');
+
+    //   if (action.step) {
+    //     console.log('action.step : ' + action.step);
+    //     return {
+    //       ...state,
+    //       step: action.step,
+    //     };
+    //   }
+    //   return state;
+    case 'SET_STEP':
+      console.log('action.step : ',  action.step);
+      return {
+        ...state,
+        step: action.step,
+      };
+    case 'UPDATE_CONFIG':
+      console.log('action.config : ', action.config);
+      return {
+        ...state,
+        config: {...state.config, ...action.config},
+      };
     default:
       return state;
   }

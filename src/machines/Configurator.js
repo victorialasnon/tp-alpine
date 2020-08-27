@@ -1,5 +1,5 @@
-// import store from '../store';
-
+import store from '../store';
+// import { useHistory } from "react-router-dom";
 /**
  * Define possible states, transitions, handlers, helpers.
  *
@@ -11,57 +11,33 @@ const configMachine = {
   current: ['version'],
   states: {
     version: {
-      select: function () {
+      select: function (version) {
+        // const state = store.getState();
+        // console.log('state : ', state);
+        store.dispatch({
+          type: 'UPDATE_CONFIG',
+          config: { version: [version] },
+        });
+        store.dispatch({ type: 'SET_STEP', step: 'color' });
         /** Check wether correct option is submitted here. */
         this.set(['settings']);
+        // const history = useHistory();
       },
     },
     settings: {
       next: function (context) {
-        console.log('next : context', context)
+        console.log('next : context', context);
         // const config = store.getState().config;
         /** Display next empty option screen or summary if all done. */
-        if(isConfigDone(context)) {
+        if (isConfigDone(context)) {
           this.set(['summary']);
         }
       },
-      reset: function (origin) {
-        /** Store origin somewhere. */
-        // console.log(origin);
+      reset: function () {
         this.set(['reset']);
       },
       down: function () {
         this.set([...this.current, 'test']);
-      },
-      states: {
-        test: {
-          down: function () {
-            this.set([...this.current, 'test']);
-          },
-          up: function () {
-            this.set(this.current.splice(0, this.current.length - 1));
-          },
-          states: {
-            test: {
-              down: function () {
-                this.set([...this.current, 'test']);
-              },
-              up: function () {
-                this.set(this.current.splice(0, this.current.length - 1));
-              },
-              states: {
-                test: {
-                  // down: function(){
-                  //   this.set([...this.current, 'test']);
-                  // },
-                  up: function () {
-                    this.set(this.current.splice(0, this.current.length - 1));
-                  },
-                },
-              },
-            },
-          },
-        },
       },
     },
     summary: {
@@ -93,25 +69,25 @@ const configMachine = {
       },
     },
   },
-  send(transition, ...payload) {
+  send(event, ...payload) {
     const depth = this.current.length;
     let state = this.states[this.current[0]];
-    console.log('send : payload', payload);
-    console.log('before : available transitions', state);
-    console.log('transition sent : ' + transition);
+    // console.log('send : payload', payload);
+    // console.log('before : available transitions', state);
+    // console.log('event sent : ' + event);
     for (let i = 1; i < depth; i++) {
       state = state.states[this.current[i]];
     }
     if (state) {
-      const handler = state[transition];
-      console.log('handler', handler);
+      const handler = state[event];
+      // console.log('handler', handler);
 
       if (handler) {
-        console.log('handler apply : ', ...payload);
+        // console.log('handler apply : ', ...payload);
         handler.apply(configMachine, payload);
       }
     }
-    console.log('after : available transitions', this.states[this.current[0]]);
+    // console.log('after : available transitions', this.states[this.current[0]]);
   },
 
   set(state) {
@@ -157,3 +133,34 @@ export default configMachine;
 // for (const [key, value] of config){
 //   isDone = isDone && Array.isArray(value) && value.length;
 // }
+
+// states: {
+//   test: {
+//     down: function () {
+//       this.set([...this.current, 'test']);
+//     },
+//     up: function () {
+//       this.set(this.current.splice(0, this.current.length - 1));
+//     },
+//     states: {
+//       test: {
+//         down: function () {
+//           this.set([...this.current, 'test']);
+//         },
+//         up: function () {
+//           this.set(this.current.splice(0, this.current.length - 1));
+//         },
+//         states: {
+//           test: {
+//             // down: function(){
+//             //   this.set([...this.current, 'test']);
+//             // },
+//             up: function () {
+//               this.set(this.current.splice(0, this.current.length - 1));
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// },
