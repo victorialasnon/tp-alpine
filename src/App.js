@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import { useDispatch } from 'react-redux';
-import { Breadcrumbs } from './components/Breadcrumbs';
+import { useSelector } from 'react-redux';
 import configMachine from './machines/Configurator';
+import { Breadcrumbs } from './components/Breadcrumbs';
+import {ConfigSummary} from './components/ConfigSummary';
 
 function App() {
-  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const selected = state.config;
+  // console.log('selected config : ', selected);
   return (
     <div className="App">
       <Breadcrumbs />
@@ -60,8 +63,12 @@ function App() {
           cancel
         </button>
       </div>
+      <hr />
+      <ConfigSummary />
     </div>
   );
 }
+
+
 
 export default App;

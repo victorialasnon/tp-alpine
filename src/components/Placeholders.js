@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Toast from 'react-bootstrap/Toast';
 import configMachine from '../machines/Configurator';
 import { Link } from 'react-router-dom';
 import catalog from '../config/catalog';
@@ -35,7 +34,7 @@ export const Version = (props) => {
 export const Color = (props) => {
   const selected = useSelector((state) => state.config.version);
   console.log(selected[0]?.desc);
-  const [show, toggleShow] = useState(true);
+  // const [show, toggleShow] = useState(true);
   return (
     <>
       <Link to="/color">{listItems(catalog.colors.all, 'select')}</Link>

@@ -1,9 +1,39 @@
 import React, { Component } from 'react';
+import { useSelector } from 'react-redux';
+
 import './ConfigSummary.css';
 
-export const ConfigSummary = (props) => {
+function listItems(catalog) {
   return (
-    <div className="configStatus d-flex bd-d-flex align-items-end flex-column bd-highlight mb-3">
+    <ul>
+      {catalog.map((item, key) => {
+        return (
+          <li key={key}>
+            {item.desc} {item.price} €
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+export const ConfigSummary = (props) => {
+  const state = useSelector((state) => state);
+  const selected = state.config;
+  return (
+    <>
+    <hr />
+    <p>step : {state.step ?? '...'}</p>
+    <hr />
+    <ol>
+      <li>version {listItems(selected.version)}</li>
+      <li>color {listItems(selected.color)}</li>
+      <li>rims {listItems(selected.rims)}</li>
+      <li>upholstery {listItems(selected.upholstery)}</li>
+      <li>equipment {listItems(selected.equipment)}</li>
+      <li>accessories : {listItems(selected.accessories)}</li>
+    </ol>
+    {/* <div className="configStatus d-flex bd-d-flex align-items-center flex-column bd-highlight mb-3">
       <div className="selectionVersion">
         Version
         <p className="versionPrice">S</p>
@@ -55,6 +85,7 @@ export const ConfigSummary = (props) => {
         Caractéristiques techniques
         <a href="#">afficher</a>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 // import { createSelector } from 'reselect';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,6 @@ import configMachine from '../machines/Configurator';
 // );
 
 export const Breadcrumbs = (props) => {
-  const dispatch = useDispatch();
   const step = useSelector((state) => state.step);
 
   function send(event) {
