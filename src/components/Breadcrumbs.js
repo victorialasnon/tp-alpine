@@ -1,16 +1,9 @@
 import React from 'react';
-import { useSelector} from 'react-redux';
-// import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import routes from '../config/routes';
-
 import configMachine from '../machines/Configurator';
-// const selectSteps = createSelector(
-//   state => state.steps
-// );
 
 export const Breadcrumbs = (props) => {
   const step = useSelector((state) => state.step);

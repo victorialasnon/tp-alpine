@@ -1,6 +1,5 @@
 import React from 'react';
-import { NextButton } from './NextButton';
-import { ConfigStatus } from './ConfigStatus';
+import { NextButton, ConfigStatus } from './';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 

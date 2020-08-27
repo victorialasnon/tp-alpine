@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './PreviewCarousel.css';
 import Carousel from 'react-bootstrap/Carousel';
 

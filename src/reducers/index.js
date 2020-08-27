@@ -58,6 +58,8 @@ function rootReducer(state = initialState, action) {
  *   i.e.: generator.next('stepValue');
  *
  * @todo Consider making 'previous' a reserved keyword used to go backward.
+ * @todo Explore what exactly happens on dispatch with generators stored in the 
+ *       state.
  */
 function* stepSequencer(steps) {
   const length = steps.length;

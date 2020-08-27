@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 // import { useSelector } from 'react-redux';
 import configMachine from './machines/Configurator';
-import { Breadcrumbs } from './components/Breadcrumbs';
-import {ConfigSummary} from './components/ConfigSummary';
+import { Breadcrumbs } from './components';
+import { ConfigSummary } from './components/ConfigSummary';
+import { ConfigModal } from './components/ConfigModal';
 
 function App() {
   // const state = useSelector((state) => state);
@@ -62,7 +63,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
