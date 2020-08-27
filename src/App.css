@@ -1,9 +1,9 @@
 :root {
-  --color-alpine: 1000ff;
-  --color-white: f4f4f4;
-  --color-darker: 848484;
-  --color-black: 101011;
-  --color-light-blue: a38dfc;
+  --color-alpine: #1000ff;
+  --color-white: #f4f4f4;
+  --color-darker: #848484;
+  --color-black: #101011;
+  --color-light-blue: #a38dfc;
 }
 
 .App {
