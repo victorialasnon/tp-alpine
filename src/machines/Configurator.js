@@ -1,31 +1,25 @@
 import store from '../store';
-// import { useHistory } from "react-router-dom";
 /**
  * Define possible states, transitions, handlers, helpers.
  *
- * @note Context for guards and business state is handled with redux store.
- * @todo Consider wether to integrate with redux store or just track context
- *       in redux store.
+ * @note Business state and context for guards are handled with redux store.
  */
 const configMachine = {
-  current: ['version'],
+  _current: ['version'],
+  //---------------------------------------------------------- machine rules ---
   states: {
     version: {
-      select: function (version) {
-        // const state = store.getState();
-        // console.log('state : ', state);
+      select(version) {
         store.dispatch({
           type: 'UPDATE_CONFIG',
           config: { version: [version] },
         });
         store.dispatch({ type: 'SET_STEP', step: 'color' });
-        /** Check wether correct option is submitted here. */
-        this.set(['settings']);
-        // const history = useHistory();
+        this._current = ['settings'];
       },
     },
     settings: {
-      next: function (items) {
+      next(items) {
         const context = store.getState();
 
         store.dispatch({
@@ -33,98 +27,93 @@ const configMachine = {
           config: { [context.step]: [items] },
         });
         store.dispatch({ type: 'SET_STEP', step: 'rims' });
-        /** Display next empty option screen or summary if all done. */
-        if (isConfigDone(context.config)) {
-          this.set(['summary']);
+        
+        if (this.isConfigDone(context.config)) {
+          this._current = ['summary'];
         }
       },
-      reset: function () {
-        this.set(['reset']);
+      reset() {
+        this._current = ['reset'];
       },
-      down: function () {
-        this.set([...this.current, 'test']);
+      down() {
+        this._current = [...this._current, 'test'];
       },
     },
     summary: {
-      submit: function () {
+      submit() {
         /** Send config by email. */
-        this.set(['done']);
+        this._current = ['done'];
       },
-      reset: function (origin) {
-        /** Store origin somewhere. */
-        // console.log(origin);
-        this.set(['reset']);
+      reset(origin) {
+        this._current = ['reset'];
       },
     },
     reset: {
-      confirm: function () {
+      confirm() {
         store.dispatch({ type: 'RESET_CONFIG' });
-        this.set(['version']);
+        this._current = ['version'];
       },
-      cancel: function () {
-        /** Figure out how to retrieve origin and go back there. */
-        this.set(['summary']);
+      cancel() {
+        this._current = ['summary'];
       },
     },
     done: {
-      reset: function (origin) {
-        /** Store origin somewhere. */
-        // console.log(origin);
-        this.set(['reset']);
+      reset(origin) {
+        this._current = ['reset'];
       },
     },
   },
+//---------------------------------------------------------------------- API ---
   send(event, ...payload) {
-    const depth = this.current.length;
-    let state = this.states[this.current[0]];
-    // console.log('send : payload', payload);
-    // console.log('before : available transitions', state);
-    // console.log('event sent : ' + event);
+    const depth = this._current.length;
+    let state = this.states[this._current[0]];
     for (let i = 1; i < depth; i++) {
-      state = state.states[this.current[i]];
+      state = state.states[this._current[i]];
     }
     if (state) {
       const handler = state[event];
-      // console.log('handler', handler);
 
       if (handler) {
-        // console.log('handler apply : ', ...payload);
         handler.apply(configMachine, payload);
       }
     }
-    // console.log('after : available transitions', this.states[this.current[0]]);
+  },
+  getState() {
+    return this._current;
   },
 
-  set(state) {
-    this.current = state;
+  isConfigDone(config) {
+    let isDone = false;
+    if (config === Object(config)) {
+      isDone = true;
+      Object.keys(config).forEach(function (key) {
+        isDone = isDone && Array.isArray(config[key]) && config[key].length;
+      });
+    }
+    return isDone;
+  },
+  /**
+   * Return a generator that wraps around a given array of steps.
+   *
+   * Created generator will move its internal cursor to optional given step on
+   * next() call if given step exists.
+   *   i.e.: generator.next('stepValue');
+   *
+   * @todo Consider making 'previous' a reserved keyword used to go backward.
+   */
+  *stepSequencer(steps) {
+    const length = steps.length;
+    for (let i = 0; ; ) {
+      if (i >= length) {
+        i = 0;
+      } else if (i < 0) {
+        i = length - 1;
+      }
+      const requested = steps.indexOf(yield steps[i]);
+      i = requested !== -1 ? requested : i + 1;
+    }
   },
 };
-
-function isConfigDone(config) {
-  let isDone = false;
-  if (config === Object(config)) {
-    isDone = true;
-    Object.keys(config).forEach(function (key) {
-      isDone = isDone && Array.isArray(config[key]) && config[key].length;
-      console.log(isDone);
-    });
-  }
-  console.log('isConfigDone ? : ', config, isDone);
-  return isDone;
-}
-
-function * stepSequencer(steps) {
-  const length = steps.length;
-  for(let i = 0;;) {
-    if (i >= length) {
-      i = 0;
-    } else if (i < 0) {
-      i = length - 1;
-    }
-    const requested = steps.indexOf(yield steps[i]);
-    i = (requested !== -1) ? requested : i + 1;
-  }
-}
 
 export default configMachine;
 
@@ -154,27 +143,27 @@ export default configMachine;
 
 // states: {
 //   test: {
-//     down: function () {
-//       this.set([...this.current, 'test']);
+//     down() {
+//       this._current = [...this._current, 'test']);
 //     },
-//     up: function () {
-//       this.set(this.current.splice(0, this.current.length - 1));
+//     up() {
+//       this._current = this._current.splice(0, this._current.length - 1));
 //     },
 //     states: {
 //       test: {
-//         down: function () {
-//           this.set([...this.current, 'test']);
+//         down() {
+//           this._current = [...this._current, 'test']);
 //         },
-//         up: function () {
-//           this.set(this.current.splice(0, this.current.length - 1));
+//         up() {
+//           this._current = this._current.splice(0, this._current.length - 1));
 //         },
 //         states: {
 //           test: {
 //             // down: function(){
-//             //   this.set([...this.current, 'test']);
+//             //   this._current = [...this._current, 'test']);
 //             // },
-//             up: function () {
-//               this.set(this.current.splice(0, this.current.length - 1));
+//             up() {
+//               this._current = this._current.splice(0, this._current.length - 1));
 //             },
 //           },
 //         },
@@ -182,3 +171,39 @@ export default configMachine;
 //     },
 //   },
 // },
+
+// function isConfigDone(config) {
+//   let isDone = false;
+//   if (config === Object(config)) {
+//     isDone = true;
+//     Object.keys(config).forEach(function (key) {
+//       isDone = isDone && Array.isArray(config[key]) && config[key].length;
+//     });
+//   }
+//   return isDone;
+// }
+
+// /**
+//  * Return a generator that wraps around a given array of steps.
+//  *
+//  * Created generator will move its internal cursor to optional given step on
+//  * next() call if given step exists.
+//  *   i.e.: generator.next('stepValue');
+//  *
+//  * @todo Consider making 'previous' a reserved keyword used to go backward.
+//  */
+// function* stepSequencer(steps) {
+//   const length = steps.length;
+//   for (let i = 0; ; ) {
+//     if (i >= length) {
+//       i = 0;
+//     } else if (i < 0) {
+//       i = length - 1;
+//     }
+//     const requested = steps.indexOf(yield steps[i]);
+//     i = requested !== -1 ? requested : i + 1;
+//   }
+// }
+// transitionTo(state) {
+//     this._current = state;
+//   },
