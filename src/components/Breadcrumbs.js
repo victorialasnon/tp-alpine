@@ -1,9 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './Breadcrumbs.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import routes from '../config/routes';
 import configMachine from '../machines/Configurator';
+import Logo from '../images/logo/logo-white.png';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 
 export const Breadcrumbs = (props) => {
   const step = useSelector((state) => state.step);
@@ -23,6 +27,9 @@ export const Breadcrumbs = (props) => {
   })} */}
       {/* <span>{fsm.current}</span> */}
       <Breadcrumb>
+
+      <img src={Logo}  alt="alpine logo" />
+
         {routes.map(({ path, event, name }, key) => {
           return (
             // return transition === fsm.current ? (

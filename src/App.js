@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 // import { useSelector } from 'react-redux';
 import configMachine from './machines/Configurator';
-import { Breadcrumbs } from './components';
-import { ConfigSummary } from './components/ConfigSummary';
-import { ConfigModal } from './components/ConfigModal';
+import {
+  NextButton,
+  Footer,
+  Breadcrumbs,
+  ConfigSummary,
+  ConfigModal,
+} from './components';
+// import Container from 'react-bootstrap/Container';
 
 function App() {
+  const [cancelShow, setCancelShow] = useState(false);
   // const state = useSelector((state) => state);
   // const selected = state.config;
   // console.log('selected config : ', selected);
@@ -16,50 +22,83 @@ function App() {
       <div>
         <hr />
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('select');
           }}
         >
-          select
+          <div className="unskew">select</div>
         </button>
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('next');
           }}
         >
-          next
+          <div className="unskew">next</div>
         </button>
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('submit');
           }}
         >
-          submit
+          <div className="unskew">submit</div>
         </button>
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('reset');
           }}
         >
-          reset
+          <div className="unskew">reset</div>
         </button>
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('confirm');
           }}
         >
-          confirm
+          <div className="unskew">confirm</div>
         </button>
         <button
+          className="skew"
           onClick={() => {
             configMachine.send('cancel');
           }}
         >
-          cancel
+          <div className="unskew">cancel</div>
         </button>
       </div>
       <hr />
       <ConfigSummary />
+
+      <NextButton
+        onClick={() => {
+          configMachine.send('reset');
+          setCancelShow(true);
+        }}
+      >
+        recommencer
+      </NextButton>
+      <ConfigModal
+        show={cancelShow}
+        title="ÊTES-VOUS SÛR ?"
+        cancel="ANNULER"
+        ok="RECOMMENCER"
+        onHide={() => {
+          configMachine.send('cancel');
+          setCancelShow(false);
+        }}
+        onOk={() => {
+          configMachine.send('confirm');
+          setCancelShow(false);
+        }}
+      >
+        Si vous modifiez le choix de version, vous devrez recommencer votre
+        configuration. Vos choix seront perdus.
+      </ConfigModal>
+      <Footer />
     </div>
   );
 }

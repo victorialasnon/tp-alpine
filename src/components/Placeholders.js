@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import configMachine from '../machines/Configurator';
 import { Link } from 'react-router-dom';
 import catalog from '../config/catalog';
+import {ConfigSummary} from './';
 
 function listItems(catalog, event) {
   return catalog.map((item, key) => {
@@ -14,7 +15,7 @@ function listItems(catalog, event) {
           configMachine.send(event, item);
         }}
       >
-        select {item.name} {item.price} €
+        {item.desc} {item.price} €
       </button>
     );
   });
@@ -53,28 +54,34 @@ export const Upholstery = (props) => {
 };
 export const Equipment = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#ee9e67', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    // <Link to="/rims">
+    <>
+      {catalog.equipments.map((category, key) => {
+        console.log('category', category);
+        return [
+          <h4 key={key}>{category.desc}</h4>,
+          listItems(category.items.all, 'next'),
+        ];
+      })}
+    </>
+    // </Link>
   );
 };
 export const Accessories = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#e68380', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <>
+      {catalog.accessories.map((category, key) => {
+        console.log('category', category);
+        return [
+          <h4 key={key}>{category.desc}</h4>,
+          listItems(category.items.all, 'next'),
+        ];
+      })}
+    </>
   );
 };
 export const Summary = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#df9ae9', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <ConfigSummary />
   );
 };

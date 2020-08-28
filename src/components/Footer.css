@@ -1,0 +1,10 @@
+.next-button{
+    width : 15rem;
+    position: absolute;
+    right : -1rem;
+}
+
+footer {
+    background-color: var(--color-light-trans);
+    /* background-color: pink; */
+}

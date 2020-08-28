@@ -7,3 +7,4 @@ export { NextButton } from './NextButton';
 export { OptionList } from './OptionList';
 export { OptionMenu } from './OptionMenu';
 export { PreviewCarousel } from './PreviewCarousel';
+export { Footer } from './Footer';

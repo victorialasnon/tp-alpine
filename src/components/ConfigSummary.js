@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import './ConfigSummary.css';
 
-function listItems(catalog) {
+function listItems(items) {
   return (
     <ul>
-      {catalog.map((item, key) => {
+      {items.map((item, key) => {
         return (
           <li key={key}>
             {item.desc} {item.price} €
