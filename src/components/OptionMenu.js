@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './OptionMenu.css';
 
 export const OptionMenu = (props) => {

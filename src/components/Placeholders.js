@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import Toast from 'react-bootstrap/Toast';
 import configMachine from '../machines/Configurator';
 import { Link } from 'react-router-dom';
 import catalog from '../config/catalog';
+import {ConfigSummary} from './';
 
 function listItems(catalog, event) {
   return catalog.map((item, key) => {
@@ -15,77 +15,73 @@ function listItems(catalog, event) {
           configMachine.send(event, item);
         }}
       >
-        select {item.name} {item.price} €
+        {item.desc} {item.price} €
       </button>
     );
   });
 }
 
 export const Version = (props) => {
-  const selected = useSelector((state) => state.config.version);
-  console.log(selected[0]?.desc);
-  return (
-    <>
-      <Link to="/color">{listItems(catalog.versions, 'select')}</Link>
-      <p>{selected[0]?.desc ?? '...'}</p>
-    </>
-  );
+  return <Link to="/color">{listItems(catalog.versions, 'select')}</Link>;
 };
 
 export const Color = (props) => {
-  const selected = useSelector((state) => state.config.version);
-  console.log(selected[0]?.desc);
-  const [show, toggleShow] = useState(true);
-  return (
-    <>
-      <Link to="/color">{listItems(catalog.colors.all, 'select')}</Link>
-      <p>{selected[0]?.desc ?? '...'}</p>
-    </>
-  );
+  return <Link to="/rims">{listItems(catalog.colors.all, 'next')}</Link>;
 };
 
 export const Rims = (props) => {
+  const version = useSelector((state) => state.config.version[0]);
+  console.log('version', version);
   return (
-    <div
-      style={{ backgroundColor: '#a5d773', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <Link to="/upholstery">
+      {listItems(catalog.rims.all, 'next')}
+      {catalog.rims[version?.name]
+        ? listItems(catalog.rims[version.name], 'next')
+        : null}
+    </Link>
   );
 };
 export const Upholstery = (props) => {
+  const version = useSelector((state) => state.config.version[0]);
   return (
-    <div
-      style={{ backgroundColor: '#e9d459', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <Link to="/equipment">
+      {listItems(catalog.upholsteries.all, 'next')}
+      {catalog.upholsteries[version?.name]
+        ? listItems(catalog.upholsteries[version.name], 'next')
+        : null}
+    </Link>
   );
 };
 export const Equipment = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#ee9e67', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    // <Link to="/rims">
+    <>
+      {catalog.equipments.map((category, key) => {
+        console.log('category', category);
+        return [
+          <h4 key={key}>{category.desc}</h4>,
+          listItems(category.items.all, 'next'),
+        ];
+      })}
+    </>
+    // </Link>
   );
 };
 export const Accessories = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#e68380', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <>
+      {catalog.accessories.map((category, key) => {
+        console.log('category', category);
+        return [
+          <h4 key={key}>{category.desc}</h4>,
+          listItems(category.items.all, 'next'),
+        ];
+      })}
+    </>
   );
 };
 export const Summary = (props) => {
   return (
-    <div
-      style={{ backgroundColor: '#df9ae9', width: '100px', height: '100px' }}
-    >
-      {props.path}
-    </div>
+    <ConfigSummary />
   );
 };

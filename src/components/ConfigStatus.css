@@ -1,4 +1,13 @@
-.configStatus{
+.status {
+    color: var(--color-alpine);
+  line-height: var(--footer-height);
+  font-weight: 700;
+  margin: 0 32px;
+  padding: 0;
+  border: 0;
+  font-size: 2rem;
+}
+/* .configStatus{
     background-color : var(--color-white);
     flex : 1;
     color: var(--alpine);
@@ -40,4 +49,4 @@
     font-family: "alpineAscensionWeb, sans-serif";
     line-height: 1.45;
     direction: ltr;
-}
+} */

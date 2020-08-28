@@ -1,19 +1,15 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-// import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './Breadcrumbs.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import routes from '../config/routes';
-
 import configMachine from '../machines/Configurator';
-// const selectSteps = createSelector(
-//   state => state.steps
-// );
+import Logo from '../images/logo/logo-white.png';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 
 export const Breadcrumbs = (props) => {
-  const dispatch = useDispatch();
   const step = useSelector((state) => state.step);
 
   function send(event) {
@@ -31,6 +27,9 @@ export const Breadcrumbs = (props) => {
   })} */}
       {/* <span>{fsm.current}</span> */}
       <Breadcrumb>
+
+      <img src={Logo}  alt="alpine logo" />
+
         {routes.map(({ path, event, name }, key) => {
           return (
             // return transition === fsm.current ? (
